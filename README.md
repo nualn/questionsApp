@@ -1,15 +1,15 @@
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
-  <ol>
+  <ul>
     <li>
       <a href="#about-the-project">About The Project</a>
-      <ol>
+      <ul>
         <li><a href="#features-required-by-the-course">Features required by the course</a></li>
         <li><a href="#database-schema-used">Database schema used</a></li>
-      </ol>
+      </ul>
     </li>
-  </ol>
+  </ul>
 </details>
 
 # About the project
