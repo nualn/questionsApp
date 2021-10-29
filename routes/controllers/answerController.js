@@ -74,4 +74,21 @@ const addAnswer = async ({request, response, render, params}) => {
     }
 };
 
-export { listAnswers, addAnswer };
+const deleteAnswer = async ({ params, response, request }) => {
+    const userId = 1; // placeholder 
+    
+    await answerService.deleteAnswer(userId, params.questionId, params.optionId);
+    const authorized = await answerService.deleteAnswer(
+        userId, 
+        params.questionId, 
+        params.optionId
+    );
+    
+    if (authorized) {
+        response.redirect( `/questions/${params.questionId}`);
+    } else {
+        response.status = 401;
+    }
+};
+
+export { listAnswers, addAnswer, deleteAnswer };
