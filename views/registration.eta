@@ -2,9 +2,19 @@
 
 <h1>Registration form</h1>
 
+<% if (it.validationErrors) { %>
+<ul>
+    <% Object.keys(it.validationErrors).forEach((attribute) => { %>
+        <% Object.values(it.validationErrors[attribute]).forEach((err) => { %>
+            <li><%= err %></li>
+        <% }); %>
+    <% }); %>
+</ul>
+<% } %>
+
 <form method="POST" action="/auth/register">
   Email:<br/>
-  <input type="email" name="email" /><br/>
+  <input type="email" name="email" value="<%= it.email ? it.email : '' %>"/><br/>
   Password:<br/>
   <input type="password" name="password" /><br/>
   <input type="submit" value="Register" />
