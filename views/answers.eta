@@ -14,7 +14,7 @@
 </ul>
 <% } else { %>
 
-<h2>Answer options</h2>
+<h2>Answer options:</h2>
 
 <% if (it.answers && it.answers.length > 0) { %>
 
@@ -31,7 +31,10 @@
 
 <% } else { %>
 
-    <p>No answer options yet.</p>
+    <p>No answer options.</p>
+    <form method="POST" action="/questions/<%= it.question.id %>/delete">
+        <input type="submit" value= "Delete question">
+    </form>
 
 <% }} %>
 

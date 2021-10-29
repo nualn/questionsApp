@@ -37,8 +37,21 @@ const addQuestion = async ({request, response, render}) => {
             questionData.question_text,
         );
 
-        response.redirect("/questions")
+        response.redirect("/questions");
     }
 };
 
-export { listQuestions, addQuestion };
+const deleteQuestion = async ({ request, response, params }) => {
+    const userId = 1; //placeholder
+
+    const authorized = await questionService.deleteQuestion(userId, params.id);
+    
+    if (authorized) {
+        response.redirect("/questions");
+    } else {
+        response.status = 401;
+    }
+    
+};
+
+export { listQuestions, addQuestion, deleteQuestion };

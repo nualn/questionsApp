@@ -1,4 +1,5 @@
 import { executeQuery } from "../database/database.js";
+import { answersToQuestion } from "./answerService.js";
 
 const questionsFromUserId = async (user_id) => {
     const res = await executeQuery(
@@ -27,4 +28,25 @@ const questionById = async (user_id, question_id) => {
     return res.rows;
 }
 
-export { questionsFromUserId, addQuestion, questionById };
+const hasAnswerOptions = async (question_id) => {
+    const res = await answersToQuestion(question_id);
+    return res.length > 0; 
+};
+
+const deleteQuestion = async (user_id, question_id) => {
+    const res = await questionById(user_id, question_id);
+    const userOwnsQuestion = res.length > 0; // will separate this functionality to a middleware.
+    // this is repeated too much at the moment.
+    const noAnswerOptions = !(await hasAnswerOptions(question_id));
+
+    if (userOwnsQuestion && noAnswerOptions) {
+        await executeQuery(
+            "DELETE FROM questions WHERE id=$1;",
+            question_id,
+            );
+    }
+
+    return userOwnsQuestion;
+};
+
+export { questionsFromUserId, addQuestion, questionById, deleteQuestion };
