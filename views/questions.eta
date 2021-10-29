@@ -18,7 +18,7 @@
 
 <ul>
 <% it.questions.forEach(question => { %>
-  <li><%= question.title %></li>
+  <li><a href="/questions/<%= question.id %>" ><%= question.title %></a></li>
 <% }); %>
 </ul>
 
