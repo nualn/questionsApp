@@ -56,4 +56,4 @@ const deleteAnswer = async (user_id, question_id, option_id) => {
 };
 
 
-export { answersForOwner, addAnswer, deleteAnswer };
+export { answersForOwner, addAnswer, deleteAnswer, answersToQuestion };
