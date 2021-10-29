@@ -20,7 +20,12 @@
 
     <ul>
     <% it.answers.forEach(answer => { %>
-        <li>Id: <%= answer.id %> | Answer: <%= answer.option_text %> | Is correct: <%= answer.is_correct %></li>
+        <li>
+        Id: <%= answer.id %> | Answer: <%= answer.option_text %> | Is correct: <%= answer.is_correct %>
+        <form method="POST" action="/questions/<%= it.question.id %>/options/<%= answer.id %>/delete">
+            <input type="submit" value="Delete option">
+        </form>
+        </li>
     <% }); %>
     </ul>
 

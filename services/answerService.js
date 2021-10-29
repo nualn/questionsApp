@@ -10,7 +10,7 @@ const userOwnsQuestion = async (user_id, question_id) => {
 
 const answersForOwner = async (user_id, question_id) => {
     
-    const userIsOwner = userOwnsQuestion(user_id, question_id);
+    const userIsOwner = await userOwnsQuestion(user_id, question_id);
 
     if (userIsOwner) {
         const res = await executeQuery(
@@ -23,7 +23,7 @@ const answersForOwner = async (user_id, question_id) => {
 
 const addAnswer = async (user_id, question_id, option_text, is_correct) => {
     
-    const userIsOwner = userOwnsQuestion(user_id, question_id);
+    const userIsOwner = await userOwnsQuestion(user_id, question_id);
 
     if (userIsOwner) {
         await executeQuery(
@@ -36,4 +36,19 @@ const addAnswer = async (user_id, question_id, option_text, is_correct) => {
     return userIsOwner
 };
 
-export { answersForOwner, addAnswer };
+const deleteAnswer = async (user_id, question_id, option_id) => {
+
+    const userIsOwner = await userOwnsQuestion(user_id, question_id);
+
+    if (userIsOwner) {
+        await executeQuery(
+            "DELETE FROM question_answer_options WHERE question_id=$1 AND id=$2;",
+            question_id,
+            option_id,
+        );
+    }
+    return userIsOwner
+};
+
+
+export { answersForOwner, addAnswer, deleteAnswer };

@@ -13,5 +13,6 @@ router.post("/questions", questionController.addQuestion);
 
 router.get("/questions/:id", answerController.listAnswers);
 router.post("/questions/:id/options", answerController.addAnswer);
+router.post("/questions/:questionId/options/:optionId/delete", answerController.deleteAnswer);
 
 export { router };
