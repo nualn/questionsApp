@@ -8,16 +8,21 @@ const userOwnsQuestion = async (user_id, question_id) => {
     return res.length > 0;
 };
 
+const answersToQuestion = async (question_id) => {
+    const res = await executeQuery(
+        "SELECT * FROM question_answer_options WHERE question_id=$1;", question_id
+    );
+    
+    return res.rows;
+};
+
 const answersForOwner = async (user_id, question_id) => {
     
     const userIsOwner = await userOwnsQuestion(user_id, question_id);
 
     if (userIsOwner) {
-        const res = await executeQuery(
-            "SELECT * FROM question_answer_options WHERE question_id=$1;", question_id
-        );
-        
-        return res.rows;
+        const res = await answersToQuestion(question_id)
+        return res;
     }
 };
 
