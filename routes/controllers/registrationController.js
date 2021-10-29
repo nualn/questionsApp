@@ -7,17 +7,15 @@ const getRegistrationData = async (request) => {
     const body = request.body({ type: "form" });
     const params = await body.value;
 
-    const registrationData = {
+    return {
         email: params.get("email"),
         password: params.get("password"),
     };
-
-    return registrationData;
 };
 
 const registerUser = async ({ request, response, render }) => {
 
-    const registrationData = getRegistrationData(request);
+    const registrationData = await getRegistrationData(request);
 
     const [passes, errors] = await validasaur.validate(
         registrationData,

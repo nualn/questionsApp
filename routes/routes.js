@@ -3,6 +3,7 @@ import * as mainController from "./controllers/mainController.js";
 import * as questionController from "./controllers/questionController.js";
 import * as answerController from "./controllers/answerController.js";
 import * as registrationController from "./controllers/registrationController.js";
+import * as loginController from "./controllers/loginController.js";
 
 
 const router = new Router();
@@ -19,5 +20,8 @@ router.post("/questions/:questionId/options/:optionId/delete", answerController.
 
 router.get("/auth/register", registrationController.showRegistrationForm);
 router.post("/auth/register", registrationController.registerUser);
+
+router.get("/auth/login", loginController.showLoginForm);
+router.post("/auth/login", loginController.processLogin);
 
 export { router };

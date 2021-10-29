@@ -13,4 +13,5 @@ const registrationValidationRules = {
     email: [validasaur.required, validasaur.isEmail],
     password: [validasaur.required, validasaur.minLength(4)],
 };
+
 export { questionValidationRules, answerValidationRules, registrationValidationRules };
