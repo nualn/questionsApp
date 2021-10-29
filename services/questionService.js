@@ -17,4 +17,14 @@ const addQuestion = async (user_id, title, question_text) => {
     );
 };
 
-export { questionsFromUserId, addQuestion };
+const questionById = async (user_id, question_id) => {
+    const res = await executeQuery(
+        "SELECT * FROM questions WHERE id=$1 AND user_id=$2;",
+        question_id,
+        user_id,
+    );
+    
+    return res.rows;
+}
+
+export { questionsFromUserId, addQuestion, questionById };
