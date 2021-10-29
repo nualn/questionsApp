@@ -5,4 +5,8 @@ const questionValidationRules = {
     question_text: [validasaur.required, validasaur.minLength(1)],
 };
 
-export { questionValidationRules };
+const answerValidationRules = {
+    option_text: [validasaur.required, validasaur.minLength(1)]
+    
+};
+export { questionValidationRules, answerValidationRules };
