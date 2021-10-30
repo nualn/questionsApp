@@ -1,7 +1,7 @@
 import * as userService from "../../services/userService.js";
 import { bcrypt } from "../../deps.js";
 
-const processLogin = async ({ request, response, state }) => {
+const processLogin = async ({ request, response, state, render }) => {
     const body = request.body({ type: "form" });
     const params = await body.value;
 
@@ -9,8 +9,10 @@ const processLogin = async ({ request, response, state }) => {
         params.get("email"),
     );
 
+    const errorMessage = { validationErrors: { credentials: { invalid: "Login failed: Invalid email or password" }}};
+
     if (userFromDatabase.length != 1) {
-        response.redirect("/auth/login");
+        render("login.eta", errorMessage);
         return;
     }
 
@@ -21,8 +23,7 @@ const processLogin = async ({ request, response, state }) => {
     );
 
     if (!passwordMatches) {
-        const errorMessage = { email: { failed: "Login failed: Invalid email or password." }};
-        response.redirect("/auth/login", errorMessage);
+        render("login.eta", errorMessage);
         return;
     }
 
