@@ -1,10 +1,14 @@
 import * as questionService from "../../services/questionService.js";
 import * as answerService from "../../services/answerService.js";
 
-const redirectToRandomQuestion = async ({ response }) => {
+const redirectToRandomQuestion = async ({ response, render }) => {
     const id = await questionService.randomQuestionId();
 
-    response.redirect(`/quiz/${id}`);
+    if (id) {
+        response.redirect(`/quiz/${id}`);
+    } else {
+        render("noQuestions.eta");
+    }
 };
 
 const renderQuestion = async ({ render, params }) => {
