@@ -5,6 +5,7 @@ import * as answerController from "./controllers/answerController.js";
 import * as registrationController from "./controllers/registrationController.js";
 import * as loginController from "./controllers/loginController.js";
 import * as quizController from "./controllers/quizController.js";
+import * as statisticsController from "./controllers/statisticsController.js";
 
 
 const router = new Router();
@@ -28,6 +29,8 @@ router.post("/auth/login", loginController.processLogin);
 router.get("/quiz", quizController.redirectToRandomQuestion);
 router.get("/quiz/:id", quizController.renderQuestion);
 router.post("/quiz/:id/options/:optionId", quizController.checkAnswer);
-router.get("/quiz/:id/:correctness", quizController.renderResponsePage)
+router.get("/quiz/:id/:correctness", quizController.renderResponsePage);
+
+router.get("/statistics", statisticsController.listStats);
 
 export { router };

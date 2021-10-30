@@ -13,11 +13,10 @@ const getAnswerData = async (request) => {
     };
 };
 
-const getQuestion = async (params, state) => {
+const getQuestion = async (params) => {
     const questionId = params.id
-    const userId = (await state.session.get("user")).id;
 
-    const res = await questionById(userId, questionId);
+    const res = await questionById(questionId);
 
     return res;
 };
@@ -25,7 +24,7 @@ const getQuestion = async (params, state) => {
 const listAnswers = async ({ render, params, response, state}) => {
     const userId = (await state.session.get("user")).id;
     
-    const question = await getQuestion(params, state);
+    const question = await getQuestion(params);
     // returns null if user is not the owner
     const answers = await answerService.answersForOwner(
         userId, 
@@ -33,7 +32,7 @@ const listAnswers = async ({ render, params, response, state}) => {
     );
 
     if (answers) {
-        render("answers.eta", { answers: answers, question: question[0] });
+        render("answers.eta", { answers: answers, question: question });
     // if question is not owned by user, return 401
     } else {
         response.status = 401;
