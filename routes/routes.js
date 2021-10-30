@@ -27,5 +27,7 @@ router.post("/auth/login", loginController.processLogin);
 
 router.get("/quiz", quizController.redirectToRandomQuestion);
 router.get("/quiz/:id", quizController.renderQuestion);
+router.post("/quiz/:id/options/:optionId", quizController.checkAnswer);
+router.get("/quiz/:id/:correctness", quizController.renderResponsePage)
 
 export { router };

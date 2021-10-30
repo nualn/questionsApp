@@ -55,5 +55,23 @@ const deleteAnswer = async (user_id, question_id, option_id) => {
     return userIsOwner
 };
 
+const getSingleAnswer = async (answerId) => {
+    const res = await executeQuery("SELECT * FROM question_answer_options WHERE id=$1;", answerId);
+    return res.rows[0];
+};
 
-export { answersForOwner, addAnswer, deleteAnswer, answersToQuestion };
+// adds attempts to answer questions to the database
+const answerQuestion = async (user_id, question_id, question_answer_option_id, correct) => {
+    await executeQuery(
+        `INSERT INTO 
+        question_answers (user_id, question_id, question_answer_option_id, correct)
+        VALUES ($1, $2, $3, $4);`,
+        user_id, 
+        question_id, 
+        question_answer_option_id, 
+        correct
+    );
+};
+
+
+export { answersForOwner, addAnswer, deleteAnswer, answersToQuestion, getSingleAnswer, answerQuestion };
