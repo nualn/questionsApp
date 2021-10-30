@@ -3,9 +3,9 @@ import { questionById } from "./questionService.js";
 
 // Function to verify that user_id is the owner of the question
 const userOwnsQuestion = async (user_id, question_id) => {
-    const res = await questionById(user_id, question_id);
+    const res = await questionById(question_id);
 
-    return res.length > 0;
+    return res.user_id === user_id;
 };
 
 const answersToQuestion = async (question_id) => {

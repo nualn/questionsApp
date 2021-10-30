@@ -4,6 +4,7 @@ import * as questionController from "./controllers/questionController.js";
 import * as answerController from "./controllers/answerController.js";
 import * as registrationController from "./controllers/registrationController.js";
 import * as loginController from "./controllers/loginController.js";
+import * as quizController from "./controllers/quizController.js";
 
 
 const router = new Router();
@@ -23,5 +24,8 @@ router.post("/auth/register", registrationController.registerUser);
 
 router.get("/auth/login", loginController.showLoginForm);
 router.post("/auth/login", loginController.processLogin);
+
+router.get("/quiz", quizController.redirectToRandomQuestion);
+router.get("/quiz/:id", quizController.renderQuestion);
 
 export { router };

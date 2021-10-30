@@ -18,14 +18,13 @@ const addQuestion = async (user_id, title, question_text) => {
     );
 };
 
-const questionById = async (user_id, question_id) => {
+const questionById = async (question_id) => {
     const res = await executeQuery(
-        "SELECT * FROM questions WHERE id=$1 AND user_id=$2;",
+        "SELECT * FROM questions WHERE id=$1;",
         question_id,
-        user_id,
     );
     
-    return res.rows;
+    return res.rows[0];
 }
 
 const hasAnswerOptions = async (question_id) => {
@@ -34,8 +33,8 @@ const hasAnswerOptions = async (question_id) => {
 };
 
 const deleteQuestion = async (user_id, question_id) => {
-    const res = await questionById(user_id, question_id);
-    const userOwnsQuestion = res.length > 0; // will separate this functionality to a middleware.
+    const res = await questionById(question_id);
+    const userOwnsQuestion = res.user_id === user_id; // will separate this functionality to a middleware.
     // this is repeated too much at the moment.
     const noAnswerOptions = !(await hasAnswerOptions(question_id));
 
@@ -49,4 +48,11 @@ const deleteQuestion = async (user_id, question_id) => {
     return userOwnsQuestion;
 };
 
-export { questionsFromUserId, addQuestion, questionById, deleteQuestion };
+const randomQuestionId = async () => {
+    const res = await executeQuery("SELECT id FROM questions ORDER BY random() LIMIT 1;");
+    if (res && res.rows.length > 0) {
+        return res.rows[0].id;
+    }
+};
+
+export { questionsFromUserId, addQuestion, questionById, deleteQuestion, randomQuestionId };
