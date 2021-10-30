@@ -2,8 +2,9 @@ import * as questionService from "../../services/questionService.js";
 import { validasaur } from "../../deps.js";
 import { questionValidationRules } from "../../config/validationRules.js";
 
-const listQuestions = async ({request, render}) => {
-    const questions = await questionService.questionsFromUserId(1/*placeholder until authentication is implemented*/);
+const listQuestions = async ({ state, render }) => {
+    const userId = (await state.session.get("user")).id;
+    const questions = await questionService.questionsFromUserId(userId);
     render("questions.eta", { questions: questions });
 };
 
@@ -17,7 +18,8 @@ const getQuestionData = async (request) => {
     };
 };
 
-const addQuestion = async ({request, response, render}) => {
+const addQuestion = async ({request, response, render, state}) => {
+    const userId = (await state.session.get("user")).id;
     const questionData = await getQuestionData(request);
 
     const [passes, errors] = await validasaur.validate(
@@ -32,7 +34,7 @@ const addQuestion = async ({request, response, render}) => {
     } else {
 
         await questionService.addQuestion(
-            1/*placeholder for user_id*/,
+            userId,
             questionData.title,
             questionData.question_text,
         );
@@ -41,8 +43,8 @@ const addQuestion = async ({request, response, render}) => {
     }
 };
 
-const deleteQuestion = async ({ request, response, params }) => {
-    const userId = 1; //placeholder
+const deleteQuestion = async ({ state, response, params }) => {
+    const userId = (await state.session.get("user")).id;
 
     const authorized = await questionService.deleteQuestion(userId, params.id);
     

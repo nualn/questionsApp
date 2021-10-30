@@ -13,19 +13,19 @@ const getAnswerData = async (request) => {
     };
 };
 
-const getQuestion = async (params, request) => {
+const getQuestion = async (params, state) => {
     const questionId = params.id
-    const userId = 1/*placeholder until authentication is implemented*/
+    const userId = (await state.session.get("user")).id;
 
     const res = await questionById(userId, questionId);
 
     return res;
 };
 
-const listAnswers = async ({request, render, params, response}) => {
-    const userId = 1/*placeholder until authentication is implemented*/;
+const listAnswers = async ({ render, params, response, state}) => {
+    const userId = (await state.session.get("user")).id;
     
-    const question = await getQuestion(params, request);
+    const question = await getQuestion(params, state);
     // returns null if user is not the owner
     const answers = await answerService.answersForOwner(
         userId, 
@@ -41,10 +41,10 @@ const listAnswers = async ({request, render, params, response}) => {
 };
 
 
-const addAnswer = async ({request, response, render, params}) => {
+const addAnswer = async ({request, response, render, params, state}) => {
+    const userId = (await state.session.get("user")).id;
     const answerData = await getAnswerData(request);
-
-    const question = await getQuestion(params, request);
+    const question = await getQuestion(params, state);
 
     answerData.question = question[0];
 
@@ -60,7 +60,7 @@ const addAnswer = async ({request, response, render, params}) => {
     } else {
 
         const authorized = await answerService.addAnswer(
-            1/*placeholder for user_id*/,
+            userId,
             params.id,
             answerData.option_text,
             answerData.is_correct,
@@ -74,8 +74,8 @@ const addAnswer = async ({request, response, render, params}) => {
     }
 };
 
-const deleteAnswer = async ({ params, response, request }) => {
-    const userId = 1; // placeholder 
+const deleteAnswer = async ({ params, response, state }) => {
+    const userId = (await state.session.get("user")).id;
     
     await answerService.deleteAnswer(userId, params.questionId, params.optionId);
     const authorized = await answerService.deleteAnswer(
