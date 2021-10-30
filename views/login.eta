@@ -2,15 +2,7 @@
 
 <h1>Login form</h1>
 
-<% if (it.validationErrors) { %>
-<ul>
-    <% Object.keys(it.validationErrors).forEach((attribute) => { %>
-        <% Object.values(it.validationErrors[attribute]).forEach((err) => { %>
-            <li><%= err %></li>
-        <% }); %>
-    <% }); %>
-</ul>
-<% } %>
+<%~ includeFile("./partials/validationErrors.eta", it) %>
 
 <form method="POST" action="/auth/login">
   Email:<br/>

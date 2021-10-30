@@ -2,15 +2,7 @@
 
 <h1>Questions!</h1>
 
-<% if (it.validationErrors) { %>
-<ul>
-    <% Object.keys(it.validationErrors).forEach((attribute) => { %>
-        <% Object.values(it.validationErrors[attribute]).forEach((err) => { %>
-            <li><%= err %></li>
-        <% }); %>
-    <% }); %>
-</ul>
-<% } else { %>
+<%~ includeFile("./partials/validationErrors.eta", it) %>
 
 <h2>Your questions</h2>
 
@@ -26,7 +18,7 @@
 
 <p>No questions yet.</p>
 
-<% }} %>
+<% } %>
 
 <h2>Add a question!</h2>
 
