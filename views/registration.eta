@@ -2,7 +2,7 @@
 
 <h1>Registration form</h1>
 
-<%~ includeFile("./partials/validationErrors.eta, it") %>
+<%~ includeFile("./partials/validationErrors.eta", it) %>
 
 <form method="POST" action="/auth/register">
   Email:<br/>

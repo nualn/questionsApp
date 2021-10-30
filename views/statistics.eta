@@ -1,0 +1,30 @@
+<% layout('./layouts/layout.eta') %>
+
+<h1>Statistics!</h1>
+
+<% if (it.allAnswersByUser) { %>
+
+<h2>Your statistics:</h2>
+
+<table>
+    <tr>
+        <th>All answers by you</th>
+        <th>All correct answers by you</th>
+        <th>Answers given to your questions</th>
+    </tr>
+    <tr>
+        <td><%= it.allAnswersByUser %></td>
+        <td><%= it.correctAnswersByUser %></td>
+        <td><%= it.answersToQuestionsByUser %></td>
+    </tr>
+
+<% } %>
+
+<h2>Top 5 answerers</h2>
+
+<ol>
+<% it.topFive.forEach(user => { %>
+  <li>User: <%= user.email %>, answers: <%= user.count %></a></li>
+<% }); %>
+</ol>
+
