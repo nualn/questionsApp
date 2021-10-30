@@ -2,15 +2,7 @@
 
 <h1>Registration form</h1>
 
-<% if (it.validationErrors) { %>
-<ul>
-    <% Object.keys(it.validationErrors).forEach((attribute) => { %>
-        <% Object.values(it.validationErrors[attribute]).forEach((err) => { %>
-            <li><%= err %></li>
-        <% }); %>
-    <% }); %>
-</ul>
-<% } %>
+<%~ includeFile("./partials/validationErrors.eta") %>
 
 <form method="POST" action="/auth/register">
   Email:<br/>
