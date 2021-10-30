@@ -69,7 +69,7 @@ const answerQuestion = async (user_id, question_id, question_answer_option_id, c
         user_id, 
         question_id, 
         question_answer_option_id, 
-        correct
+        correct,
     );
 };
 

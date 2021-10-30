@@ -4,7 +4,7 @@
 
 <% if (it.allAnswersByUser) { %>
 
-<h2>Your statistics:</h2>
+<h2>Your statistics</h2>
 
 <table>
     <tr>
@@ -17,14 +17,17 @@
         <td><%= it.correctAnswersByUser %></td>
         <td><%= it.answersToQuestionsByUser %></td>
     </tr>
+</table>
 
 <% } %>
 
 <h2>Top 5 answerers</h2>
 
-<ol>
+<table>
+<tr><th>Email</th><th>Answers</th></tr>
 <% it.topFive.forEach(user => { %>
-  <li>User: <%= user.email %>, answers: <%= user.count %></a></li>
-<% }); %>
-</ol>
+<tr><td><%= user.email %></td><td><%= user.count %></td></tr>
+<% }) %>
+</table>
+
 

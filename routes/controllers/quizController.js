@@ -27,9 +27,9 @@ const checkAnswer = async ({ response, params, state }) => {
     const questionId = params.id;
     const answerId = params.optionId;
     const answer = await answerService.getSingleAnswer(answerId);
-    const user = await state.session.user;
+    const user = await state.session.get("user");
     const correct = answer.is_correct
-
+    
     if(user) {
         const userId = user.id
         await answerService.answerQuestion(userId, questionId, answerId, correct);

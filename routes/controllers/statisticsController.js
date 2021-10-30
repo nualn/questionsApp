@@ -1,8 +1,8 @@
 import * as statisticsService from "../../services/statisticsService.js";
 
 const listStats = async ({ render, state }) => {
-    const user = await state.session.user;
-    const data = {};
+    const user = await state.session.get("user");
+    let data = {};
     
     if (user) {
         data = await statisticsService.getUserStatistics(user.id);
