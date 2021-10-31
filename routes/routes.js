@@ -25,6 +25,7 @@ router.post("/auth/register", registrationController.registerUser);
 
 router.get("/auth/login", loginController.showLoginForm);
 router.post("/auth/login", loginController.processLogin);
+router.get("/auth/logout", loginController.logout);
 
 router.get("/quiz", quizController.redirectToRandomQuestion);
 router.get("/quiz/:id", quizController.renderQuestion);

@@ -30,3 +30,7 @@
 .errors {
     color: red;
 }
+
+.navbar-right {
+    float: right;
+}
