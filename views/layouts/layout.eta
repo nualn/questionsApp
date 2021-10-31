@@ -16,6 +16,17 @@
                     <li><a href="/questions">Your questions</a></li>
                     <li><a href="/quiz">Answer questions</a></li>
                     <li><a href="/statistics">Statistics</a></li>
+                    <% if (it.user) { %>
+                        <div class="navbar-right">
+                            <li>Logged in as: <%= it.user.email %></li>
+                            <li><a href="/auth/logout">Log out</a></li>
+                        </div>
+                    <% } else { %>
+                        <div class="navbar-right">
+                            <li><a href="/auth/login">Log in</a></li>
+                            <li><a href="/auth/register">Register</a></li>
+                        </div>
+                    <% } %>
                 </ul>
             </div>
             <%~ it.body %>

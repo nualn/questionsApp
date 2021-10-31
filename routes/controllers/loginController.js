@@ -31,8 +31,14 @@ const processLogin = async ({ request, response, state, render }) => {
     response.redirect("/questions");
 };
 
+const logout = async ({response, state}) => {
+    await state.session.set("user", null);
+  
+    response.redirect("/");
+  }
+
 const showLoginForm = ({ render }) => {
     render("login.eta");
 };
 
-export { processLogin, showLoginForm };
+export { processLogin, showLoginForm, logout };
