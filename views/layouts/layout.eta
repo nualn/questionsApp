@@ -18,7 +18,7 @@
                     <li><a href="/statistics">Statistics</a></li>
                     <% if (it.user) { %>
                         <div class="navbar-right">
-                            <li>Logged in as: <%= it.user.email %></li>
+                            <li><span class="navbar-text">Logged in as: <%= it.user.email %></span></li>
                             <li><a href="/auth/logout">Log out</a></li>
                         </div>
                     <% } else { %>
