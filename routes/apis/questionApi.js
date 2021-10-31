@@ -1,5 +1,6 @@
 import { randomQuestion } from "../../services/questionService.js";
 import { answersToQuestion } from "../../services/answerService.js";
+import { getSingleAnswer } from "../../services/answerService.js";
 
 const sendRandomQuestion = async({ response }) => {
     const question = await randomQuestion();
@@ -30,4 +31,18 @@ const sendRandomQuestion = async({ response }) => {
 
 };
 
-export { sendRandomQuestion };
+const checkAnswerJSON = async ({ request, response }) => {
+    const body = request.body({ type: "json" });
+    const document = await body.value;
+    
+    if (document.optionId) {
+        const answer = await getSingleAnswer(document.optionId);
+
+        if (document.questionId && document.questionId === answer.question_id) {
+            
+            response.body = { correct: answer.is_correct };
+        }
+    }
+};
+
+export { sendRandomQuestion, checkAnswerJSON };

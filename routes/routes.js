@@ -36,5 +36,6 @@ router.get("/quiz/:id/:correctness", quizController.renderResponsePage);
 router.get("/statistics", statisticsController.listStats);
 
 router.get("/api/questions/random", questionApi.sendRandomQuestion);
+router.post("/api/questions/answer", questionApi.checkAnswerJSON);
 
 export { router };
