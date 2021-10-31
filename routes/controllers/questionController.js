@@ -1,10 +1,16 @@
 import * as questionService from "../../services/questionService.js";
 import { validasaur } from "../../deps.js";
 import { questionValidationRules } from "../../config/validationRules.js";
+import { getUserId } from "../../services/userService.js";
+
+const getQuestions = async (state) => {
+    const questions = await questionService.questionsFromUserId(await getUserId(state));
+
+    return questions;
+};
 
 const listQuestions = async ({ state, render }) => {
-    const userId = (await state.session.get("user")).id;
-    const questions = await questionService.questionsFromUserId(userId);
+    const questions = await getQuestions(state);
     render("questions.eta", { questions: questions });
 };
 
@@ -19,7 +25,6 @@ const getQuestionData = async (request) => {
 };
 
 const addQuestion = async ({request, response, render, state}) => {
-    const userId = (await state.session.get("user")).id;
     const questionData = await getQuestionData(request);
 
     const [passes, errors] = await validasaur.validate(
@@ -29,12 +34,16 @@ const addQuestion = async ({request, response, render, state}) => {
 
     if (!passes) {
         console.log(errors);
+
+        const questions = await getQuestions(state);
+        
+        questionData.questions = questions;
         questionData.validationErrors = errors;
         render("questions.eta", questionData);
     } else {
 
         await questionService.addQuestion(
-            userId,
+            await getUserId(state),
             questionData.title,
             questionData.question_text,
         );
@@ -44,9 +53,8 @@ const addQuestion = async ({request, response, render, state}) => {
 };
 
 const deleteQuestion = async ({ state, response, params }) => {
-    const userId = (await state.session.get("user")).id;
 
-    const authorized = await questionService.deleteQuestion(userId, params.id);
+    const authorized = await questionService.deleteQuestion(await getUserId(state), params.id);
     
     if (authorized) {
         response.redirect("/questions");
