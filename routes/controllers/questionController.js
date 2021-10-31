@@ -29,6 +29,10 @@ const addQuestion = async ({request, response, render, state}) => {
 
     if (!passes) {
         console.log(errors);
+
+        const questions = await questionService.questionsFromUserId(userId);
+        
+        questionData.questions = questions;
         questionData.validationErrors = errors;
         render("questions.eta", questionData);
     } else {

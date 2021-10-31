@@ -54,6 +54,13 @@ const addAnswer = async ({request, response, render, params, state}) => {
 
     if (!passes) {
         console.log(errors);
+
+        const answers = await answerService.answersForOwner(
+            userId, 
+            params.id,
+        );
+
+        answerData.answers = answers;
         answerData.validationErrors = errors;
         render("answers.eta", answerData);
     } else {

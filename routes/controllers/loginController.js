@@ -9,7 +9,10 @@ const processLogin = async ({ request, response, state, render }) => {
         params.get("email"),
     );
 
-    const errorMessage = { validationErrors: { credentials: { invalid: "Login failed: Invalid email or password" }}};
+    const errorMessage = { 
+        validationErrors: { credentials: { invalid: "Login failed: Invalid email or password" }},
+        email: params.get("email"),
+    };
 
     if (userFromDatabase.length != 1) {
         render("login.eta", errorMessage);
