@@ -1,6 +1,8 @@
 <% layout('./layouts/layout.eta') %>
 
-<h1><%= it.question.title %></h1>
+<h1>Answer the question</h1>
+
+<h2><%= it.question.title %></h2>
 
 <p><%= it.question.question_text %></p>
 
