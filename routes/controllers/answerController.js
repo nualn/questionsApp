@@ -42,6 +42,7 @@ const listAnswers = async ({ render, params, response, state}) => {
 const addAnswer = async ({request, response, render, params, state}) => {
     const answerData = await getAnswerData(request);
     const question = await getQuestion(params);
+    const userId = await getUserId(state);
 
     answerData.question = question;
 
@@ -54,7 +55,7 @@ const addAnswer = async ({request, response, render, params, state}) => {
         console.log(errors);
 
         const answers = await answerService.answersForOwner(
-            await getUserId(state), 
+            userId, 
             params.id,
         );
 
