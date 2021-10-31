@@ -18,6 +18,7 @@
 .navbar li a {
     display: block;
     color: white;
+    background-color: #777f85;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -33,4 +34,12 @@
 
 .navbar-right {
     float: right;
+}
+
+.navbar-text {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
 }
