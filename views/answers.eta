@@ -1,0 +1,43 @@
+<% layout('./layouts/layout.eta') %>
+
+<h1><%= it.question.title %></h1>
+
+<p><%= it.question.question_text %></p>
+
+<h2>Answer options:</h2>
+
+<% if (it.answers && it.answers.length > 0) { %>
+
+    <ul>
+    <% it.answers.forEach(answer => { %>
+        <li>
+        Id: <%= answer.id %> | Answer: <%= answer.option_text %> | Is correct: <%= answer.is_correct %>
+        <form method="POST" action="/questions/<%= it.question.id %>/options/<%= answer.id %>/delete">
+            <input type="submit" value="Delete option">
+        </form>
+        </li>
+    <% }); %>
+    </ul>
+
+<% } else { %>
+
+    <p>No answer options.</p>
+    <form method="POST" action="/questions/<%= it.question.id %>/delete">
+        <input type="submit" value= "Delete question">
+    </form>
+
+<% } %>
+
+<h2>Add answer options!</h2>
+
+<%~ includeFile("./partials/validationErrors.eta", it) %>
+
+<form method="POST" action="/questions/<%= it.question.id %>/options">
+    Answer option:<br/>
+    <textarea name="option_text"></textarea></br>
+    Answer is correct:<br/>
+    <input type="checkbox" name="is_correct"></br>
+    <input type="submit" value="Add">
+</form>
+
+<a href="/questions">Back to questions<a>

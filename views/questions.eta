@@ -1,24 +1,12 @@
 <% layout('./layouts/layout.eta') %>
 
-<h1>Questions!</h1>
-
-<% if (it.validationErrors) { %>
-<ul>
-    <% Object.keys(it.validationErrors).forEach((attribute) => { %>
-        <% Object.values(it.validationErrors[attribute]).forEach((err) => { %>
-            <li><%= err %></li>
-        <% }); %>
-    <% }); %>
-</ul>
-<% } else { %>
-
-<h2>Your questions</h2>
+<h1>Your questions</h1>
 
 <% if (it.questions && it.questions.length > 0) { %>
 
 <ul>
 <% it.questions.forEach(question => { %>
-  <li><%= question.title %></li>
+  <li><a href="/questions/<%= question.id %>" ><%= question.title %></a></li>
 <% }); %>
 </ul>
 
@@ -26,9 +14,11 @@
 
 <p>No questions yet.</p>
 
-<% }} %>
+<% } %>
 
-<h2>Add a question!</h2>
+<h2>Add a question</h2>
+
+<%~ includeFile("./partials/validationErrors.eta", it) %>
 
 <form method="POST" action="/questions">
 Title:<br/>

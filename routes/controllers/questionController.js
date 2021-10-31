@@ -1,9 +1,16 @@
 import * as questionService from "../../services/questionService.js";
 import { validasaur } from "../../deps.js";
 import { questionValidationRules } from "../../config/validationRules.js";
+import { getUserId } from "../../services/userService.js";
 
-const listQuestions = async ({request, render}) => {
-    const questions = await questionService.questionsFromUserId(1/*placeholder until authentication is implemented*/);
+const getQuestions = async (state) => {
+    const questions = await questionService.questionsFromUserId(await getUserId(state));
+
+    return questions;
+};
+
+const listQuestions = async ({ state, render }) => {
+    const questions = await getQuestions(state);
     render("questions.eta", { questions: questions });
 };
 
@@ -17,7 +24,7 @@ const getQuestionData = async (request) => {
     };
 };
 
-const addQuestion = async ({request, response, render}) => {
+const addQuestion = async ({request, response, render, state}) => {
     const questionData = await getQuestionData(request);
 
     const [passes, errors] = await validasaur.validate(
@@ -27,18 +34,34 @@ const addQuestion = async ({request, response, render}) => {
 
     if (!passes) {
         console.log(errors);
+
+        const questions = await getQuestions(state);
+        
+        questionData.questions = questions;
         questionData.validationErrors = errors;
         render("questions.eta", questionData);
     } else {
 
         await questionService.addQuestion(
-            1/*placeholder for user_id*/,
+            await getUserId(state),
             questionData.title,
             questionData.question_text,
         );
 
-        response.redirect("/questions")
+        response.redirect("/questions");
     }
 };
 
-export { listQuestions, addQuestion };
+const deleteQuestion = async ({ state, response, params }) => {
+
+    const authorized = await questionService.deleteQuestion(await getUserId(state), params.id);
+    
+    if (authorized) {
+        response.redirect("/questions");
+    } else {
+        response.status = 401;
+    }
+    
+};
+
+export { listQuestions, addQuestion, deleteQuestion };
