@@ -2,6 +2,7 @@ import * as answerService from "../../services/answerService.js";
 import { validasaur } from "../../deps.js";
 import { answerValidationRules } from "../../config/validationRules.js";
 import { questionById } from "../../services/questionService.js";
+import { getUserId } from "../../services/userService.js";
 
 const getAnswerData = async (request) => {
     const body = request.body({ type: "form" });
@@ -22,12 +23,10 @@ const getQuestion = async (params) => {
 };
 
 const listAnswers = async ({ render, params, response, state}) => {
-    const userId = (await state.session.get("user")).id;
-    
     const question = await getQuestion(params);
     // returns null if user is not the owner
     const answers = await answerService.answersForOwner(
-        userId, 
+        await getUserId(state), 
         params.id,
     );
 
@@ -41,7 +40,6 @@ const listAnswers = async ({ render, params, response, state}) => {
 
 
 const addAnswer = async ({request, response, render, params, state}) => {
-    const userId = (await state.session.get("user")).id;
     const answerData = await getAnswerData(request);
     const question = await getQuestion(params);
 
@@ -56,7 +54,7 @@ const addAnswer = async ({request, response, render, params, state}) => {
         console.log(errors);
 
         const answers = await answerService.answersForOwner(
-            userId, 
+            await getUserId(state), 
             params.id,
         );
 
@@ -81,7 +79,7 @@ const addAnswer = async ({request, response, render, params, state}) => {
 };
 
 const deleteAnswer = async ({ params, response, state }) => {
-    const userId = (await state.session.get("user")).id;
+    const userId = await getUserId(state)
     
     await answerService.deleteAnswer(userId, params.questionId, params.optionId);
     const authorized = await answerService.deleteAnswer(

@@ -16,5 +16,9 @@ const findUserByEmail = async (email) => {
   
     return result.rows;
  };
+
+ const getUserId = async (state) => {
+    return (await state.session.get("user")).id;
+};
   
-export { addUser, findUserByEmail };
+export { addUser, findUserByEmail, getUserId };
