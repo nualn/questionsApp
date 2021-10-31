@@ -43,9 +43,9 @@ const listAnswers = async ({ render, params, response, state}) => {
 const addAnswer = async ({request, response, render, params, state}) => {
     const userId = (await state.session.get("user")).id;
     const answerData = await getAnswerData(request);
-    const question = await getQuestion(params, state);
+    const question = await getQuestion(params);
 
-    answerData.question = question[0];
+    answerData.question = question;
 
     const [passes, errors] = await validasaur.validate(
         answerData,

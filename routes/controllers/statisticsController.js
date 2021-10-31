@@ -7,7 +7,7 @@ const listStats = async ({ render, state }) => {
     if (user) {
         data = await statisticsService.getUserStatistics(user.id);
     } 
-
+    
     const topFive = await statisticsService.getTopFive();
     data.topFive = topFive;
     
