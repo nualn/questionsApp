@@ -39,3 +39,5 @@
     <input type="checkbox" name="is_correct"></br>
     <input type="submit" value="Add">
 </form>
+
+<a href="/questions">Back to questions<a>

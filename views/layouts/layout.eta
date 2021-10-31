@@ -1,1 +1,25 @@
-<%~ it.body %>
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Question app</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css">
+        <link rel="stylesheet" href="/static/css/style.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class='navbar'>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/questions">Your questions</a></li>
+                    <li><a href="/quiz">Answer questions</a></li>
+                    <li><a href="/statistics">Statistics</a></li>
+                </ul>
+            </div>
+            <%~ it.body %>
+        </div>
+    </body>
+</html>
+
