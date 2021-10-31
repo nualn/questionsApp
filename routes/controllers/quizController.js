@@ -30,6 +30,8 @@ const checkAnswer = async ({ response, params, state }) => {
     const user = await state.session.get("user");
     const correct = answer.is_correct
     
+    // If the /quiz path was unrestricted, non-users could answer question without causing errors.
+    // The answers would not be added into the database.
     if(user) {
         const userId = user.id
         await answerService.answerQuestion(userId, questionId, answerId, correct);
