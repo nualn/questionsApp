@@ -1,15 +1,15 @@
 <% layout('./layouts/layout.eta') %>
 
-<h1>Statistics!</h1>
+<h1>Statistics</h1>
 
-<% if (it.allAnswersByUser) { %>
+<% if (typeof it.allAnswersByUser !== 'undefined') { %>
 
 <h2>Your statistics</h2>
 
 <table>
     <tr>
         <th>All answers by you</th>
-        <th>All correct answers by you</th>
+        <th>Correct answers by you</th>
         <th>Answers given to your questions</th>
     </tr>
     <tr>

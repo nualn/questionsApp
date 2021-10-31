@@ -162,7 +162,7 @@ CREATE TABLE question_answers (
   id SERIAL PRIMARY KEY,
   user_id INTEGER REFERENCES users(id),
   question_id INTEGER REFERENCES questions(id),
-  question_answer_option_id INTEGER REFERENCES question_answer_options(id),
+  question_answer_option_id INTEGER REFERENCES question_answer_options(id) ON DELETE CASCADE,
   correct BOOLEAN DEFAULT false
 );
 

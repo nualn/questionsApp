@@ -1,5 +1,5 @@
 <% if (it.validationErrors) { %>
-<ul>
+<ul class="errors">
     <% Object.keys(it.validationErrors).forEach((attribute) => { %>
         <% Object.values(it.validationErrors[attribute]).forEach((err) => { %>
             <li><%= err %></li>

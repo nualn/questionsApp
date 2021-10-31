@@ -4,8 +4,6 @@
 
 <p><%= it.question.question_text %></p>
 
-<%~ includeFile("./partials/validationErrors.eta", it) %>
-
 <h2>Answer options:</h2>
 
 <% if (it.answers && it.answers.length > 0) { %>
@@ -32,6 +30,8 @@
 
 <h2>Add answer options!</h2>
 
+<%~ includeFile("./partials/validationErrors.eta", it) %>
+
 <form method="POST" action="/questions/<%= it.question.id %>/options">
     Answer option:<br/>
     <textarea name="option_text"></textarea></br>
@@ -39,3 +39,5 @@
     <input type="checkbox" name="is_correct"></br>
     <input type="submit" value="Add">
 </form>
+
+<a href="/questions">Back to questions<a>
