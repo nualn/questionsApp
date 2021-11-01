@@ -88,6 +88,7 @@ The following is a list of tasks for the project, given as a checklist. Note tha
 
 *  The application provides an API that allows asking for a random question and for answering the random question. The API does not record the answers to the database.
 *  GET requests made to the path /api/questions/random return a randomly selected question as an JSON document. The document has attributes questionId, questionTitle, questionText, and answerOptions. The attribute answerOptions is a list that contains answer options. Each answer option has attributes optionId and optionText. As an example, a document received as a response could look as follows:
+
 ```
 {
   "questionId": 1,
@@ -141,7 +142,6 @@ The response to the POST request is also a JSON document that has one attribute 
 * When no user is logged in, the navigation bar has options to log in or register.
 * A get request to /auth/logout logs out the current user (if one is logged in). The log out functionality can be accessed from the navigation bar.
 * Additional styling to the navigation bar and error messages applied on top of the milligram framework. The styles are located in /static/css/style.css.
-
 
 ## Database schema used
 ```
