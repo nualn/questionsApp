@@ -10,10 +10,10 @@ Deno.test({
         await executeQuery("DELETE FROM question_answer_options; DELETE FROM questions;");
 
         const testClient = await superoak(app);
-        const response = await testClient.get("/api/questions/random")
-        .expect(200)
-        .expect("Content-Type", new RegExp("application/json"))
-        .expect({});
+        await testClient.get("/api/questions/random")
+            .expect(200)
+            .expect("Content-Type", new RegExp("application/json"))
+            .expect({});
     },
     sanitizeResources: false,
     sanitizeOps: false,
