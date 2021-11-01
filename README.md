@@ -175,3 +175,18 @@ CREATE TABLE question_answers (
 
 CREATE UNIQUE INDEX ON users((lower(email)));
 ```
+## Usage
+### Running locally
+
+Once you have the files in a local directory, run 
+```
+deno run --allow-read --allow-net --unstable  run-locally.js
+```
+in the directory
+
+### Running tests
+
+To run the tests use the command
+```
+deno test --allow-net --allow-read --unstable 
+```
