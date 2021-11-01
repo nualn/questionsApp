@@ -8,10 +8,11 @@ Deno.test({
         // make sure there is a question to answer
         await addQuestion(1, "test", "this is a test");
         const question = (await questionsFromUserId(1))[0];
-        
-        await answerService.addAnswer(1, question.id, "this is a test", true);
+        // Make duplicates unlikely
+        const optionText = Math.floor(Math.random() * 10000).toString();
+        await answerService.addAnswer(1, question.id, optionText, true);
         const res = await answerService.answersToQuestion(question.id);
-        assert(res.some(obj => obj.option_text === "this is a test"));
+        assert(res.some(obj => obj.option_text === optionText));
     },
     sanitizeResources: false,
     sanitizeOps: false,
