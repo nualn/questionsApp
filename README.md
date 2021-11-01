@@ -7,6 +7,7 @@
       <ul>
         <li><a href="#features-required-by-the-course">Features required by the course</a></li>
         <li><a href="#database-schema-used">Database schema used</a></li>
+        <li><a href="#usage">Usage</a></li>
       </ul>
     </li>
   </ul>
