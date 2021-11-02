@@ -180,15 +180,23 @@ CREATE UNIQUE INDEX ON users((lower(email)));
 You can try out the application on [heroku](https://question-ap.herokuapp.com/).
 ### Running locally
 
-Once you have the files in a local directory, run 
+To run the application locally you need to create a database with the tables outlined above and add the database credentials to /database/database.js on the sixth row inside the empty object parameter.
+```
+import { Pool } from "../deps.js";
+
+const CONCURRENT_CONNECTIONS = 2;
+const connectionPool = new Pool({  !!!CREDENTIALS GO HERE!!!  }, CONCURRENT_CONNECTIONS);
+
+```
+Then to run the application use the command 
 ```
 deno run --allow-read --allow-net --unstable  run-locally.js
 ```
-in the directory
+in the applications root directory.
 
 ### Running tests
 
-To run the tests use the command
+To run the tests, go through the same steps as for running the application locally, but instead use the following command:
 ```
 deno test --allow-net --allow-read --unstable 
 ```
