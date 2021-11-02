@@ -177,6 +177,7 @@ CREATE TABLE question_answers (
 CREATE UNIQUE INDEX ON users((lower(email)));
 ```
 ## Usage
+You can try out the application on [heroku](https://question-ap.herokuapp.com/).
 ### Running locally
 
 Once you have the files in a local directory, run 
